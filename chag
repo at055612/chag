@@ -149,6 +149,8 @@ update() {
   local replacement="## $TAG - $(date +%Y-%m-%d)"
   perl -i -pe "s/.*/$replacement/ if \$.==${start}" $FILENAME
   echo "[SUCCESS] Updated ${FILENAME} with ${TAG}"
+  echo "File diff:"
+  echo "===[ BEGIN ]==="; git diff -U0 ${FILENAME} | grep '^[+-]' | grep -Ev '^(--- a/|\+\+\+ b/)'; echo "===[  END  ]==="
 }
 
 # Get a list of entry versions separated by newlines
